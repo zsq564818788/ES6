@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面向对象的实例</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        main{
+            width: 600px;
+            height: 800px;
+            border: 1px solid black;
+            
+
+        }
+        nav{
+            width: 600px;
+            height: 50px;
+            border: 1px solid black;
+            border-bottom: none;
+        }
+        ul li{
+            list-style: none;
+            line-height: 50px;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .tabadd{
+            float: right;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .liactive{
+            border-bottom: none;
+        }
+        section{
+            display: none;
+        }
+        .conactive{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+    <main>
+        <h4>
+            JS面向对象 动态添加标签
+        </h4>
+        <div class="tabsbox" id='tab'>
+            <!-- tab标签 -->
+            <nav class="frisrstnav">
+                <ul>
+                    <li class="liactive">
+                        <span>测试1</span>
+                        <span class="iconfont icon-guanbi">x</span>
+                    </li>
+                    <li>
+                        <span>测试2</span>
+                        <span class="iconfont icon-guanbi">x</span>
+                    </li>
+                    <li>
+                        <span>测试3</span>
+                        <span class="iconfont icon-guanbi">x</span>
+                    </li>
+                </ul>
+                <div class="tabadd">
+                    <span>+</span>
+                </div>
+            </nav>
+        </div>
+        <!-- tab内容 -->
+        <div class="tabscon">
+            <section class="conactive">测试1</section>
+            <section>测试2</section>
+            <section>测试3</section>
+        </div>
+    </main>
+    
+</body>
+<script src="./index.js"></script>
+</html>

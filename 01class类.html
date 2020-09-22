@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>点击</button>
+    
+</body>
+<script>
+    // 1.创建class类，创建一个明星类
+    class Star{
+        // 属性     
+        // constructor构造函数 1.接受传过来的参数。2.返回实例的对象
+        constructor(uname, age, sex){
+            this.uname = uname
+            this.aaa = '1111'
+            this.age = age
+            this.sex = sex
+        }
+        // 方法
+        // 类里面的函数不用谢function
+        sing(song) {
+            // console.log("aaaa")
+            console.log(this.uname + song)
+
+        }
+    }
+
+    // 2.利用类创建对象 new    1.当new生成实例的时候自动的调用constructor
+
+    // 3.现有类然后再有实例化  ；  类里面共有的方法和属性一定要在前面加上this
+    const ldh = new Star('刘德华', 18, "nan")
+    console.log(ldh)
+    console.log(ldh.uname)
+    ldh.sing("冰雨")
+
+
+
+    var that ;
+    // 1.创建class类，创建一个明星类
+    class Stars{
+        // constructor构造函数
+        constructor(uname){
+            // constructor  里面的this是指向创建的实例对象 
+            that = this
+            console.log(this)
+            this.uname = uname
+            this.btn = document.querySelector('button')
+            this.btn.onclick = this.sing
+
+        }
+        sing(song) {
+            // 方法里面的this指向的是方法的调度者
+            // console.log("aaaa")
+            console.log(that.uname.name + song)
+            // 这里面没发调用song，因为song是空
+            
+        }
+    }
+
+    // 2.利用类创建对象 new
+    var list = {name:"张学友", aaaa:1111, bbbb:22222}
+    const zxy = new Stars(list)
+    
+    console.log(zxy)
+    zxy.sing("李兰香")
+
+
+</script>
+</html>

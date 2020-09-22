@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+          1.使用工厂函数创建对象
+          通过改方法可以创造大量的函数
+        *
+        */
+        function createPerson(name, age, sex){
+            // 创建一个新的对象
+            var obj = new Object() 
+            // 想对象中添加中添加属性
+            obj.name = name
+            obj.age = age
+            obj.sex = sex
+            obj.sayname = function() {
+                console.log("工厂函数")
+            }
+            // 将新的对象返回
+            return obj
+        }
+        var gongchang = createPerson('工厂', 18, '男');
+        console.log(gongchang)
+        /*
+          使用工厂函数创建对象的弊端：
+          创建的对象都是object,
+          导致无法区分多种不同类型的对象
+        *
+        */
+
+        /*
+          2.创建一个构造函数，专门用来创建person的
+        构造函数是一个普通的函数，创建方式和普通函数没有区别
+        不同的是构造函数习惯首字母大写
+
+        注意：构造函数和普通函数的区别就是调用的方式不同
+        构造函数用 ： var a = new a();
+        普通函数用：  var a = a()
+
+
+        构造函数的执行流程：
+        1.立刻创建一个新的对象
+        2.将新建的对象设置为函数中this
+        3.逐行执行函数中的代码
+        4.将新建的对象作为返回值返回
+
+
+
+        注意：使用同一个构造函数创建的对象，我们称为一类对象，也将一个构造函数称为一个类
+        我们通过一个构造函数创建的对象，就是改对象的实例
+
+
+        this的情况：
+        1.党函数的形式调用时，this是window
+        2.当以方法的时候调用时，谁调用方法this就是谁
+        3.当以构造函数的形式调用时，this就是新创建的那个对象
+
+
+
+
+        注意：在构造函数中我们为每个对象添加了一个sayname方法，代表了当构造函数每执行一次就会创建一个方法，
+              极大的浪费了内存。所以我们可以让旗在全局作用域中体现
+        */
+
+
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.sayname = console.log('构造函数--人')
+
+        }
+
+        function gouzaoquanjv() {
+            console.log('构造函数--人')
+         }
+        function Dog(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.sayname = function(){
+                console.log('构造函数--狗')
+            }
+        }
+
+        var gouzaoren = new Person('张三', 18, "男");
+        var gouzaogou = new Dog('金毛', 18, "公");
+        console.log(gouzaoren)
+        console.log(gouzaogou)
+
+        /*
+        使用instanceof可以检查一个对象是否是一个类的实例
+        语法：  对象  instanceof  构造函数
+        如果是返回true  否则返回false
+        */
+        console.log(gouzaoren instanceof Person)
+        console.log(gouzaogou instanceof Person)
+
+        /*
+        所有的对象都是Object的后代
+        所以任何对象和Object做instanceof检查的时候返回的都是true
+
+        */
+        console.log(gouzaoren instanceof Object)
+        console.log(gouzaogou instanceof Object)
+
+
+        /*
+        构造函数的弊端：极大的消耗了很多的内存
+        
+        */
+
+        /*
+          3.原型prototype
+          我们每创建一个函数，解析器都会向函数中添加一个属性prototype
+          如果函数作为普通函数调用prototype美哟你和作用
+          当函数以构造函数调用时，它所创建的对象中都会有一个隐含的属性
+          指向该构造函数的原型对象，我们可以通过  __proto__  来访问该属性
+
+
+          原型对象就相当于了一个公共的区域，所有同一类的实例都可以访问到这个原型对象
+          我们可以将对象中共有的内容，统一设置到原型对象中
+
+          当我们访问对象的一个属性或方法时，它会先在对象的自身去找，如果有直接用，
+          如果没有去原型对象中找，如果找到则直接使用
+
+
+          我们创建构造函数时，可以将这些对象共有的一些属性和方法，统一添加到构造函数的原型中，
+            这样不用分别为每个对象添加，也不会影响到全局作用域，就可以使每个对象都具有这些属性和方法了
+
+
+        */
+        function Yuanxing() {
+
+        }
+
+        // 向Yuanxing的原型里面添加属性a
+        Yuanxing.prototype.a = 123
+        // 向Yuanxing的原型里面添加方法
+        Yuanxing.prototype.sayname = function() {
+            console.log("原型方法")
+        }
+
+        var yuanxing1 = new Yuanxing();
+
+        console.log(yuanxing1.__proto__ == Yuanxing.prototype)
+
+        
+        // 使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也是会返回true\
+        console.log("a" in yuanxing1)
+        // 可以使用对象的hasOwnProperty()来检查对象自身中是否含有该属性
+        // 使用该方法只有当对象自身中含有属性时，才会返回true
+        console.log(yuanxing1.hasOwnProperty("a")) // 返回是false
+        console.log(yuanxing1.__proto__.hasOwnProperty("hasOwnProperty"))// 返回是false
+        
+        /*
+        原型对象也是对象，所以它也有原型，
+          当我们使用一个属性或方法时，会先在自身中寻找，
+            自身中如果有，则直接使用，
+            如果没有则去原型中寻找，如果有则直接使用
+            如果没有则去原型的原型的中寻找，直找到Object对象的原型，
+            Object对象的原型没有原型，如果在Object中依然没有找到，则返回undefind
+        */
+        console.log(yuanxing1.__proto__.__proto__.hasOwnProperty("hasOwnProperty"))//返回true
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Promise是一部编程的一种解决方案：当遇到多层回调请求的时候，使用promise</h2>
+    
+
+
+    <script>
+        // 1.使用setTimeout
+        // setTimeout(() =>{
+        //     console.log("hello world")
+        // },1000)
+
+        // 参数 -> 函数
+        // resolve  reject 他们本身就是一个函数
+
+        new Promise((resolve, reject) => {
+            // 第一次网络请求的代码
+            setTimeout(() =>{
+            resolve()
+        },1000)
+        }).then(() => {
+            // 第一次网络处理的代码
+            console.log("hello world")
+            console.log("hello world")
+            console.log("hello world")
+            console.log("hello world")
+
+            return new Promise((resolve, reject) => {
+                // 第二次网络请求的代码
+                setTimeout(() => {
+                    resolve()
+                },1000)
+            })
+        }).then(() => {
+            // 第二次网络处理的代码
+            console.log("hello vuejs")
+            console.log("hello vuejs")
+            console.log("hello vuejs")
+            console.log("hello vuejs")
+
+            return new Promise((resolve, reject) => {
+                // 第三次网络请求的代码
+                setTimeout(() => {
+                    resolve()
+                },1000)
+            })
+        }).then(() => {
+            // 第三次网络处理的代码
+            console.log("hello ES6")
+            console.log("hello ES6")
+            console.log("hello ES6")
+            console.log("hello ES6")
+
+            return new Promise((resolve, reject) => {
+                // 第四次网络请求的代码
+                setTimeout(() => {
+                    resolve()
+                },1000)
+            })
+        }).then(() => {
+            // 第四次网络处理的代码
+            console.log("hello JS")
+            console.log("hello JS")
+            console.log("hello JS")
+            console.log("hello JS")
+        })
+
+
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // 失败时的调用 
+                reject('error messge')
+            },1000)
+        }).catch( (error) => {
+            console.log(error)
+        })
+
+
+
+    </script>
+</body>
+</html>

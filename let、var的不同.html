@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="按钮1" class='buttonw'>
+    <input type="button" value="按钮2" class='buttonw'>
+    <input type="button" value="按钮3" class='buttonw'>
+    <input type="button" value="按钮4" class='buttonw'>
+    <input type="button" value="按钮5" class='buttonw'>
+    <script>
+        // 一.变量作用域：变量在什么范围内是可用的
+        // {
+        //     var name = 'asdas'
+        //     console.log(name)
+        // }
+        // console.log(name)
+        // 二.没有块级作用域引起的问题：
+        // 1.if的块级没有作用域，容易出现修改变量的问题
+        
+        // var func ;
+        // if(true){
+        //     var name = 'why'
+        //     func = function(){
+        //         console.log(name)
+        //     }
+        // } 
+        // name = 'kobe'
+        // func()
+        // console.log(name)
+
+        // 2.for的块级也没有作用域
+        
+        // 这样的结果无论点那个按钮都是显示是第5个按钮
+        // 因为这个是前遍历完了 i=5，所有都显示的是5，换个说法就是异步2边同时执行导致的结果
+        // var btns = document.getElementsByClassName('button')
+        // for(var i = 0;i<btns.length;i++){
+        //     btns[i].addEventListener('click',function(){
+        //         console.log('这个是第' + i + '按钮')                
+        //     })
+        // }
+
+        // 然后用var解决这类问题，弄一个闭包
+        // var btns = document.getElementsByClassName('button')
+        // for(var i = 0;i<btns.length;i++){
+        //     (function(i){
+        //         btns[i].addEventListener('click',function(){
+        //             i = i + 1
+        //         console.log('这个是第' + i + '按钮')                
+        //         })
+        //     })(i)
+        // }
+
+        // 用ES6
+        const btns = document.getElementsByClassName('buttonw')
+        for(let i = 0;i<btns.length;i++){
+            btns[i].addEventListener('click',function(){
+                var sum = i + 1
+                console.log('这个是第' + sum + '按钮')                
+            })
+        }
+
+        
+    </script>
+    
+</body>
+</html>
